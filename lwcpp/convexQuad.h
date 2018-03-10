@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -13,19 +13,19 @@ using namespace std;
 class convexQuad
 {
 private:
-	double diagonal1, diagonal2; //диагонали выпуклого четырехугольника
-	double angle; //угол между диагоналями
+	double diagonal1, diagonal2; //РґРёР°РіРѕРЅР°Р»Рё РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°
+	double angle; //СѓРіРѕР» РјРµР¶РґСѓ РґРёР°РіРѕРЅР°Р»СЏРјРё
 
 public:
-	convexQuad(); //конструктор по умолчанию
-	convexQuad(int d1, int d2, double angle);  // конструктор с заданными параметрами
-	convexQuad(convexQuad &q);  //конструктор копирования
-	double Get_diagonal1(); //получить значение
+	convexQuad(); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+	convexQuad(int d1, int d2, double angle);  // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ Р·Р°РґР°РЅРЅС‹РјРё РїР°СЂР°РјРµС‚СЂР°РјРё
+	convexQuad(convexQuad &q);  //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	double Get_diagonal1(); //РїРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ
 	double Get_diagonal2();
 	double Get_angle();
-	void Set_diagonal1(double d1); // изменить значение
+	void Set_diagonal1(double d1); // РёР·РјРµРЅРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ
 	void Set_diagonal2(double d2);
 	void Set_angle(double h);
-	~convexQuad(); //деструктор
+	~convexQuad(); //РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 };
 

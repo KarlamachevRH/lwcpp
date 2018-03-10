@@ -1,12 +1,12 @@
-#include "paintConvexQuad.h"
+п»ї#include "paintConvexQuad.h"
 
 
 paintConvexQuad::paintConvexQuad(convexQuad *quad, int x, int y, double diagonal1Angle)
 {
 	this->quad = quad;
-	this->x = x; //значения для координат начальной точки для построения фигуры
+	this->x = x; //Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РєРѕРѕСЂРґРёРЅР°С‚ РЅР°С‡Р°Р»СЊРЅРѕР№ С‚РѕС‡РєРё РґР»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ С„РёРіСѓСЂС‹
 	this->y = y;
-	this->diagonal1Angle = diagonal1Angle; // значение угла диагонали 1 к оси х
+	this->diagonal1Angle = diagonal1Angle; // Р·РЅР°С‡РµРЅРёРµ СѓРіР»Р° РґРёР°РіРѕРЅР°Р»Рё 1 Рє РѕСЃРё С…
 }
 
 void paintConvexQuad::ReadFile()
@@ -15,7 +15,7 @@ void paintConvexQuad::ReadFile()
 	double diagonal2;
 	double angle;
 	ifstream fin("ConvexQuad.txt");
-	if (!fin.is_open()) throw 1; //если файл не может быть открыт выбросить код ошибки
+	if (!fin.is_open()) throw 1; //РµСЃР»Рё С„Р°Р№Р» РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РѕС‚РєСЂС‹С‚ РІС‹Р±СЂРѕСЃРёС‚СЊ РєРѕРґ РѕС€РёР±РєРё
 
 	fin >> diagonal1;
 	fin >> diagonal2;
@@ -25,33 +25,33 @@ void paintConvexQuad::ReadFile()
 	quad->Set_diagonal2(diagonal2);
 	quad->Set_angle(angle);
 
-	fin.close(); // закрыть файл
-	cout << "Данные загружены" << endl;
+	fin.close(); // Р·Р°РєСЂС‹С‚СЊ С„Р°Р№Р»
+	cout << "Р”Р°РЅРЅС‹Рµ Р·Р°РіСЂСѓР¶РµРЅС‹" << endl;
 }
 
 void paintConvexQuad::PrintWindowSize(HDC hdc, HWND hwnd, char *buf)
 {
 	RECT rt;
-	// получаем размер окна
+	// РїРѕР»СѓС‡Р°РµРј СЂР°Р·РјРµСЂ РѕРєРЅР°
 	GetClientRect(hwnd, &rt);
-	// устанавливаем цвет фона
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С†РІРµС‚ С„РѕРЅР°
 	SetBkColor(hdc, RGB(0, 0, 0));
-	// устанавливаем цвет текста
+	// СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С†РІРµС‚ С‚РµРєСЃС‚Р°
 	SetTextColor(hdc, RGB(202, 120, 186));	
-	// формируем выводимую строку
-	sprintf_s(buf, 100, "Размер окна %d на %d пикселей", rt.right, rt.bottom);
-	// выводим строку графическими средствами
+	// С„РѕСЂРјРёСЂСѓРµРј РІС‹РІРѕРґРёРјСѓСЋ СЃС‚СЂРѕРєСѓ
+	sprintf_s(buf, 100, "Р Р°Р·РјРµСЂ РѕРєРЅР° %d РЅР° %d РїРёРєСЃРµР»РµР№", rt.right, rt.bottom);
+	// РІС‹РІРѕРґРёРј СЃС‚СЂРѕРєСѓ РіСЂР°С„РёС‡РµСЃРєРёРјРё СЃСЂРµРґСЃС‚РІР°РјРё
 	TextOutA(hdc, 10, 10, buf, strlen(buf));
 }
 
-//выбор кисти для заливки
+//РІС‹Р±РѕСЂ РєРёСЃС‚Рё РґР»СЏ Р·Р°Р»РёРІРєРё
 int paintConvexQuad::SetBrushColour()
 {
 	int choice;
-	cout << "Введите номер желаемого цвета заливки фигуры:\n" 
-		 << "1. Красный\n"
-		 << "2. Зеленый\n"
-		 << "3. Синий\n" 
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р¶РµР»Р°РµРјРѕРіРѕ С†РІРµС‚Р° Р·Р°Р»РёРІРєРё С„РёРіСѓСЂС‹:\n" 
+		 << "1. РљСЂР°СЃРЅС‹Р№\n"
+		 << "2. Р—РµР»РµРЅС‹Р№\n"
+		 << "3. РЎРёРЅРёР№\n" 
 	     << ">";
 	cin >> choice;
 	return choice;
@@ -63,13 +63,13 @@ HBRUSH paintConvexQuad::SetBrush(HDC hdc)
 	int choice = SetBrushColour();
 	switch(choice)
 	{
-		case 1: hSomeBrush = CreateSolidBrush(RGB(250, 30, 65)); //красный
+		case 1: hSomeBrush = CreateSolidBrush(RGB(250, 30, 65)); //РєСЂР°СЃРЅС‹Р№
 				break;
 
-		case 2: hSomeBrush = CreateSolidBrush(RGB(90, 250, 80)); //зеленый
+		case 2: hSomeBrush = CreateSolidBrush(RGB(90, 250, 80)); //Р·РµР»РµРЅС‹Р№
 				break;
 
-		case 3: hSomeBrush = CreateSolidBrush(RGB(90, 80, 250)); //синий
+		case 3: hSomeBrush = CreateSolidBrush(RGB(90, 80, 250)); //СЃРёРЅРёР№
 			break;
 	}
 	return hSomeBrush;
@@ -87,7 +87,7 @@ void paintConvexQuad::PaintFigure(HDC hdc)
 	double diagonal2 = quad->Get_diagonal2();
 	double angle = quad->Get_angle();
 	double PI = 3.14159265;
-	double deg = PI / 180; // 1 градус в радианах
+	double deg = PI / 180; // 1 РіСЂР°РґСѓСЃ РІ СЂР°РґРёР°РЅР°С…
 
 	POINT ppt[4] = { { x, 
 					   y },
@@ -97,7 +97,7 @@ void paintConvexQuad::PaintFigure(HDC hdc)
 					   y + lround(diagonal1 * sin(diagonal1Angle * deg)) },
 					 { x + lround((diagonal1 / 2) * sin(diagonal1Angle * deg) - (diagonal2 * 3 / 8)*cos((angle - diagonal1Angle)*deg)),
 					   y + lround((diagonal1 / 2) * cos(diagonal1Angle * deg) + (diagonal2 * 3 / 8) * sin((angle - diagonal1Angle)*deg))} };
-	// рисуем выпуклый четырехугольник
+	// СЂРёСЃСѓРµРј РІС‹РїСѓРєР»С‹Р№ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРє
 	Polygon(hdc, ppt, 4);
 }
 
@@ -108,7 +108,7 @@ void paintConvexQuad::PaintFigureInside(HDC hdc)
 	double angle = quad->Get_angle();
 	double PI = 3.14159265;
 	double deg = PI / 180; 
-	int c = 20; // коэффициент для внутреннего расположения прямоугольника относительно основной фигуры
+	int c = 20; // РєРѕСЌС„С„РёС†РёРµРЅС‚ РґР»СЏ РІРЅСѓС‚СЂРµРЅРЅРµРіРѕ СЂР°СЃРїРѕР»РѕР¶РµРЅРёСЏ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР° РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РѕСЃРЅРѕРІРЅРѕР№ С„РёРіСѓСЂС‹
 	Rectangle(hdc, x + c, y + c, x + lround(diagonal1 * cos(diagonal1Angle * deg)) - c, y + lround(diagonal1 * sin(diagonal1Angle * deg) - c));
 }
 
@@ -117,7 +117,7 @@ double paintConvexQuad::GetNewAngle(RECT &rt, HWND hwnd)
 	GetClientRect(hwnd, &rt);
 	double a;
 	double angleMax = 180;
-	cout << "Введите значение угла между диагоналями выпуклого четырехугольника" << endl
+	cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ СѓРіР»Р° РјРµР¶РґСѓ РґРёР°РіРѕРЅР°Р»СЏРјРё РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°" << endl
 		<< "> ";
 	cin >> a;
 	if (a <= 0 || a >= angleMax - diagonal1Angle) throw 1;
@@ -130,7 +130,7 @@ double paintConvexQuad::GetNewD1(RECT rt, HWND hwnd)
 	double d1;
 	double PI = 3.14159265;
 	double deg = PI / 180;
-	cout << "Введите длину диагонали 1" << endl
+	cout << "Р’РІРµРґРёС‚Рµ РґР»РёРЅСѓ РґРёР°РіРѕРЅР°Р»Рё 1" << endl
 		 << ">";
 	cin >> d1;
 
@@ -145,7 +145,7 @@ double paintConvexQuad::GetNewD2(RECT rt, HWND hwnd)
 	double angle = quad->Get_angle();
 	double PI = 3.14159265;
 	double deg = PI / 180;
-	cout << "Введите длину диагонали 1" << endl
+	cout << "Р’РІРµРґРёС‚Рµ РґР»РёРЅСѓ РґРёР°РіРѕРЅР°Р»Рё 1" << endl
 		<< ">";
 	cin >> d2;
 
@@ -163,7 +163,7 @@ void paintConvexQuad::SetNewSize(double d1, double d2, double a)
 int paintConvexQuad::GetNewPositionX()
 {
 	int coeffX;	
-	cout << "Задайте смещение по оси х" << endl
+	cout << "Р—Р°РґР°Р№С‚Рµ СЃРјРµС‰РµРЅРёРµ РїРѕ РѕСЃРё С…" << endl
 		 << "> ";
 	cin >> coeffX;
 	return coeffX;
@@ -172,7 +172,7 @@ int paintConvexQuad::GetNewPositionX()
 int paintConvexQuad::GetNewPositionY()
 {
 	int coeffY;
-	cout << "Задайте смещение по оси y" << endl
+	cout << "Р—Р°РґР°Р№С‚Рµ СЃРјРµС‰РµРЅРёРµ РїРѕ РѕСЃРё y" << endl
 		<< "> ";
 	cin >> coeffY;
 	return coeffY;
@@ -191,14 +191,14 @@ void paintConvexQuad::SetNewPosition(int coeffX, int coeffY, HWND hwnd)
 
 void paintConvexQuad::SaveFile()
 {
-	ofstream fout("ConvexQuad.txt"); // открыть файл
+	ofstream fout("ConvexQuad.txt"); // РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»
 
 	fout << quad->Get_diagonal1() << " ";
 	fout << quad->Get_diagonal2() << " ";
 	fout << quad->Get_angle() << endl;
 
 	fout.close(); 
-	cout << "Файл записан\n" << endl;
+	cout << "Р¤Р°Р№Р» Р·Р°РїРёСЃР°РЅ\n" << endl;
 }
 
 paintConvexQuad::~paintConvexQuad()

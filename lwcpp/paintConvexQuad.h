@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "convexQuad.h"
 
 class paintConvexQuad
@@ -9,22 +9,22 @@ private:
 	double diagonal1Angle;
 
 public:	
-	paintConvexQuad(convexQuad *quad, int x, int y, double diagonal1Angle); //конструктор 
-	void ReadFile();//считать из файла
-	void PrintWindowSize(HDC hdc, HWND hwnd, char *buf);// вывод размера окна	
-	int SetBrushColour(); // выбор цвета кисти для заливки
-	HBRUSH SetBrush(HDC hdc); //выбор кисти для заливки
-	void DelBrush(HDC hdc, HBRUSH hGreenBrush, HBRUSH hOldBrush); //удалить кисть
-	void PaintFigure(HDC hdc);//рисовать контур фигуры
-	void PaintFigureInside(HDC hdc); //рисовать вложенную фигуру
-	double GetNewAngle(RECT &rt, HWND hwnd); //задать новые размеры фигуры
+	paintConvexQuad(convexQuad *quad, int x, int y, double diagonal1Angle); //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ 
+	void ReadFile();//СЃС‡РёС‚Р°С‚СЊ РёР· С„Р°Р№Р»Р°
+	void PrintWindowSize(HDC hdc, HWND hwnd, char *buf);// РІС‹РІРѕРґ СЂР°Р·РјРµСЂР° РѕРєРЅР°	
+	int SetBrushColour(); // РІС‹Р±РѕСЂ С†РІРµС‚Р° РєРёСЃС‚Рё РґР»СЏ Р·Р°Р»РёРІРєРё
+	HBRUSH SetBrush(HDC hdc); //РІС‹Р±РѕСЂ РєРёСЃС‚Рё РґР»СЏ Р·Р°Р»РёРІРєРё
+	void DelBrush(HDC hdc, HBRUSH hGreenBrush, HBRUSH hOldBrush); //СѓРґР°Р»РёС‚СЊ РєРёСЃС‚СЊ
+	void PaintFigure(HDC hdc);//СЂРёСЃРѕРІР°С‚СЊ РєРѕРЅС‚СѓСЂ С„РёРіСѓСЂС‹
+	void PaintFigureInside(HDC hdc); //СЂРёСЃРѕРІР°С‚СЊ РІР»РѕР¶РµРЅРЅСѓСЋ С„РёРіСѓСЂСѓ
+	double GetNewAngle(RECT &rt, HWND hwnd); //Р·Р°РґР°С‚СЊ РЅРѕРІС‹Рµ СЂР°Р·РјРµСЂС‹ С„РёРіСѓСЂС‹
 	double GetNewD1(RECT rt, HWND hwnd); 
 	double GetNewD2(RECT rt, HWND hwnd);	
-	void SetNewSize(double a, double d1, double d2); //изменить размеры фигуры
-	int GetNewPositionX(); //получить величину смещения по оси х
-	int GetNewPositionY(); //получить величину смещения по оси y
-	void SetNewPosition(int coeffX, int coeffY, HWND hwnd); // изменить положение фигуры			
-	void SaveFile();//сохранить в файл
+	void SetNewSize(double a, double d1, double d2); //РёР·РјРµРЅРёС‚СЊ СЂР°Р·РјРµСЂС‹ С„РёРіСѓСЂС‹
+	int GetNewPositionX(); //РїРѕР»СѓС‡РёС‚СЊ РІРµР»РёС‡РёРЅСѓ СЃРјРµС‰РµРЅРёСЏ РїРѕ РѕСЃРё С…
+	int GetNewPositionY(); //РїРѕР»СѓС‡РёС‚СЊ РІРµР»РёС‡РёРЅСѓ СЃРјРµС‰РµРЅРёСЏ РїРѕ РѕСЃРё y
+	void SetNewPosition(int coeffX, int coeffY, HWND hwnd); // РёР·РјРµРЅРёС‚СЊ РїРѕР»РѕР¶РµРЅРёРµ С„РёРіСѓСЂС‹			
+	void SaveFile();//СЃРѕС…СЂР°РЅРёС‚СЊ РІ С„Р°Р№Р»
 	~paintConvexQuad();
 };
 
