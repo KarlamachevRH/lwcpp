@@ -5,8 +5,8 @@ class paintConvexQuad
 {
 private:
 	convexQuad *quad;
-	int x, y;	
-	double diagonal1Angle;
+	int *x, *y;	
+	double *diagonal1Angle;
 
 public:	
 	paintConvexQuad(convexQuad *quad, int x, int y, double diagonal1Angle); //конструктор 

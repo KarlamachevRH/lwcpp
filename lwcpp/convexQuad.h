@@ -13,8 +13,8 @@ using namespace std;
 class convexQuad
 {
 private:
-	double diagonal1, diagonal2; //диагонали выпуклого четырехугольника
-	double angle; //угол между диагоналями
+	double *diagonal1, *diagonal2; //диагонали выпуклого четырехугольника
+	double *angle; //угол между диагоналями
 
 public:
 	convexQuad(); //конструктор по умолчанию
