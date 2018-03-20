@@ -91,7 +91,7 @@ void paintConvexQuad::PaintFigure(HDC hdc)
 	double angle = quad->Get_angle();
 	double PI = 3.14159265;
 	double deg = PI / 180; // 1 градус в радианах
-
+	//вычисление координат точек для построения выпуклого четырехугольника с внесением данных в массив структур
 	POINT ppt[4] = { { *x, 
 					   *y },
 					 { *x + lround((diagonal1/2) * cos(*diagonal1Angle * deg) + (diagonal2 * 5 / 8)*cos((angle - *diagonal1Angle) * deg)),
@@ -111,7 +111,7 @@ void paintConvexQuad::PaintFigureInside(HDC hdc)
 	double angle = quad->Get_angle();
 	double PI = 3.14159265;
 	double deg = PI / 180; 
-	int c = 20; // коэффициент для внутреннего расположения прямоугольника относительно основной фигуры
+	int c = 25; // коэффициент для внутреннего расположения прямоугольника относительно основной фигуры
 	Rectangle(hdc, *x + c, *y + c, *x + lround(diagonal1 * cos(*diagonal1Angle * deg)) - c, *y + lround(diagonal1 * sin(*diagonal1Angle * deg) - c));
 }
 
@@ -119,11 +119,11 @@ double paintConvexQuad::GetNewAngle(RECT &rt, HWND hwnd)
 {
 	GetClientRect(hwnd, &rt);
 	double a;
-	double angleMax = 90;
+	double angleMax = 120;
 	cout << "Введите значение угла между диагоналями выпуклого четырехугольника" << endl
 		<< "> ";
 	cin >> a;
-	if (a <= 30 || a >= angleMax - *diagonal1Angle) throw 1;
+	if (a <= 30 || a >= angleMax) throw 1;
 	return a;
 }
 
@@ -137,7 +137,7 @@ double paintConvexQuad::GetNewD1(RECT rt, HWND hwnd)
 		 << ">";
 	cin >> d1;
 
-	if (d1<=0 || d1>(rt.right*cos(*diagonal1Angle * deg) - *x*sqrt(2))) throw 1;
+	if (d1<10 || d1>(rt.right*cos(*diagonal1Angle * deg) - *x*sqrt(2))) throw 1;
 	return d1;
 }
 
@@ -148,11 +148,11 @@ double paintConvexQuad::GetNewD2(RECT rt, HWND hwnd)
 	double angle = quad->Get_angle();
 	double PI = 3.14159265;
 	double deg = PI / 180;
-	cout << "Введите длину диагонали 1" << endl
+	cout << "Введите длину диагонали 2" << endl
 		<< ">";
 	cin >> d2;
 
-	if (d2 <= 0 || d2 * cos((angle - *diagonal1Angle) * deg) > rt.right || d2 * sin((angle - *diagonal1Angle) * deg) > rt.bottom) throw 1;
+	if (d2 < 10 || d2 * cos((angle - *diagonal1Angle) * deg) > rt.right - *x || d2 * sin((angle - *diagonal1Angle) * deg) > rt.bottom - *y) throw 1;
 	return d2;
 }
 

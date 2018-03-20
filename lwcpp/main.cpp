@@ -65,7 +65,7 @@ void main()
 		HPEN hOldPen = SelectPen(hdc, hBluePen);
 
 		convexQuad *q = new convexQuad();
-		paintConvexQuad *p = new paintConvexQuad(q, 120, 200, 45);
+		paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
 
 		while (1)
 		{

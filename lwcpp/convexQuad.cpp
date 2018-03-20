@@ -5,9 +5,9 @@ convexQuad::convexQuad()
 	diagonal1 = new double;
 	diagonal2 = new double;
 	angle = new double;
-	*diagonal1 = 150.0;
-	*diagonal2 = 180.0;
-	*angle = 80.0;
+	*diagonal1 = 250.0;
+	*diagonal2 = 280.0;
+	*angle = 90.0;
 }
 
 convexQuad::convexQuad(int d1, int d2, double angle)
@@ -37,7 +37,7 @@ double convexQuad::Get_angle() { return *angle; }
 //инициализация элементов данных класса
 void convexQuad::Set_diagonal1(double d1) { *diagonal1 = d1; }
 void convexQuad::Set_diagonal2(double d2) { *diagonal2 = d2; }
-void convexQuad::Set_angle(double angle) {	*this->angle = angle; }
+void convexQuad::Set_angle(double angle) { *this->angle = angle; }
 
 //деструктор
 convexQuad::~convexQuad()
