@@ -55,7 +55,7 @@ int paintConvexQuad::SetBrushColour()
 		 << "1. Красный\n"
 		 << "2. Зеленый\n"
 		 << "3. Синий\n" 
-	     << ">";
+	     << ">:";
 	cin >> choice;
 	return choice;
 }
@@ -121,7 +121,7 @@ double paintConvexQuad::GetNewAngle(RECT &rt, HWND hwnd)
 	double a;
 	double angleMax = 120;
 	cout << "Введите значение угла между диагоналями выпуклого четырехугольника" << endl
-		<< "> ";
+		<< ">:";
 	cin >> a;
 	if (a <= 30 || a >= angleMax) throw 1;
 	return a;
@@ -134,7 +134,7 @@ double paintConvexQuad::GetNewD1(RECT rt, HWND hwnd)
 	double PI = 3.14159265;
 	double deg = PI / 180;
 	cout << "Введите длину диагонали 1" << endl
-		 << ">";
+		 << ">:";
 	cin >> d1;
 
 	if (d1<10 || d1>(rt.right*cos(*diagonal1Angle * deg) - *x*sqrt(2))) throw 1;
@@ -149,7 +149,7 @@ double paintConvexQuad::GetNewD2(RECT rt, HWND hwnd)
 	double PI = 3.14159265;
 	double deg = PI / 180;
 	cout << "Введите длину диагонали 2" << endl
-		<< ">";
+		<< ">:";
 	cin >> d2;
 
 	if (d2 < 10 || d2 * cos((angle - *diagonal1Angle) * deg) > rt.right - *x || d2 * sin((angle - *diagonal1Angle) * deg) > rt.bottom - *y) throw 1;
@@ -167,7 +167,7 @@ int paintConvexQuad::GetNewPositionX()
 {
 	int coeffX;	
 	cout << "Задайте смещение по оси х" << endl
-		 << "> ";
+		 << ">:";
 	cin >> coeffX;
 	return coeffX;
 }
@@ -176,7 +176,7 @@ int paintConvexQuad::GetNewPositionY()
 {
 	int coeffY;
 	cout << "Задайте смещение по оси y" << endl
-		<< "> ";
+		<< ">:";
 	cin >> coeffY;
 	return coeffY;
 }
