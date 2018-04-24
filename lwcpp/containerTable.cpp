@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "containerTable.h"
 
 
@@ -13,7 +13,7 @@ void containerTable::addShapeToTable(paintConvexQuad *paintQuad)
 {
 	createNode(paintQuad->quad->mark);
 	if (searchFreeCell() >= 0) curr->quads[searchFreeCell()] = paintQuad;
-	else cout << "Нет свободных ячеек, нажмите любую кнопку для возврата" << endl;
+	else cout << "РќРµС‚ СЃРІРѕР±РѕРґРЅС‹С… СЏС‡РµРµРє, РЅР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєРЅРѕРїРєСѓ РґР»СЏ РІРѕР·РІСЂР°С‚Р°" << endl;
 	cin.get();
 }
 
@@ -72,13 +72,13 @@ void containerTable::deleteTableElement()
 	int mark;
 	if (head == NULL)
 	{
-		cout << "Таблица пуста" << endl;
+		cout << "РўР°Р±Р»РёС†Р° РїСѓСЃС‚Р°" << endl;
 		return;
 	}
-	cout << "Введите идентификатор удаляемых фигур:\n"
-		<< "Если d1 < d2 - цифра 0\n"
-		<< "Если d1 > d2 - цифра 1\n"
-		<< "Если d1 = d2 - цифра 2" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СѓРґР°Р»СЏРµРјС‹С… С„РёРіСѓСЂ:\n"
+		<< "Р•СЃР»Рё d1 < d2 - С†РёС„СЂР° 0\n"
+		<< "Р•СЃР»Рё d1 > d2 - С†РёС„СЂР° 1\n"
+		<< "Р•СЃР»Рё d1 = d2 - С†РёС„СЂР° 2" << endl;
 	do {
 		cin >> mark;
 	} while (mark < 0 && mark > 2);
@@ -89,7 +89,7 @@ void containerTable::deleteTableElement()
 void containerTable::deleteShape()
 {
 	int choice;		
-	cout << "Введите номер удаляемой фигуры 1...5: " << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СѓРґР°Р»СЏРµРјРѕР№ С„РёРіСѓСЂС‹ 1...5: " << endl;
 	do {
 		cin >> choice;
 	} while (choice < 1 && choice > 5);	
@@ -98,7 +98,7 @@ void containerTable::deleteShape()
 }
 
 
-//распечатка элементов в таблице
+//СЂР°СЃРїРµС‡Р°С‚РєР° СЌР»РµРјРµРЅС‚РѕРІ РІ С‚Р°Р±Р»РёС†Рµ
 void containerTable::showAllListsElements()
 {
 	if (head != NULL)
@@ -106,9 +106,9 @@ void containerTable::showAllListsElements()
 		paintConvexQuad *tmp;
 		tmp = NULL;
 		int choice;
-		cout << "Выберите направление вывода данных объектов списка:\n"
-			<< "1 - c произвести вывод с начала списка\n"
-			<< "2 - с конца списка" << endl;
+		cout << "Р’С‹Р±РµСЂРёС‚Рµ РЅР°РїСЂР°РІР»РµРЅРёРµ РІС‹РІРѕРґР° РґР°РЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ СЃРїРёСЃРєР°:\n"
+			<< "1 - c РїСЂРѕРёР·РІРµСЃС‚Рё РІС‹РІРѕРґ СЃ РЅР°С‡Р°Р»Р° СЃРїРёСЃРєР°\n"
+			<< "2 - СЃ РєРѕРЅС†Р° СЃРїРёСЃРєР°" << endl;
 		do {
 			cin >> choice;
 		} while (choice < 1 && choice > 2);
@@ -121,8 +121,8 @@ void containerTable::showAllListsElements()
 			break;
 		}			
 	}
-	else cout << "Нет данных в таблице" << endl
-		      << "Нажмите Esc для возврата" << endl;
+	else cout << "РќРµС‚ РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Рµ" << endl
+		      << "РќР°Р¶РјРёС‚Рµ Esc РґР»СЏ РІРѕР·РІСЂР°С‚Р°" << endl;
 }
 
 void containerTable::showOneListElements(paintConvexQuad *tmp)
@@ -133,9 +133,9 @@ void containerTable::showOneListElements(paintConvexQuad *tmp)
 		if (curr->quads[i] != NULL)
 		{
 			tmp = curr->quads[i];
-			cout << "Длина диагонали 1 выпуклого четырехугольника: " << tmp->quad->Get_diagonal1() << endl
-				<< "Длина диагонали 2 выпуклого четырехугольника: " << tmp->quad->Get_diagonal2() << endl
-				<< "Величина угла между диагоналями выпуклого четырехугольника: " << tmp->quad->Get_angle() << endl;
+			cout << "Р”Р»РёРЅР° РґРёР°РіРѕРЅР°Р»Рё 1 РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°: " << tmp->quad->Get_diagonal1() << endl
+				<< "Р”Р»РёРЅР° РґРёР°РіРѕРЅР°Р»Рё 2 РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°: " << tmp->quad->Get_diagonal2() << endl
+				<< "Р’РµР»РёС‡РёРЅР° СѓРіР»Р° РјРµР¶РґСѓ РґРёР°РіРѕРЅР°Р»СЏРјРё РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°: " << tmp->quad->Get_angle() << endl;
 		}
 	}
 }
@@ -145,7 +145,7 @@ void containerTable::showFromHead(paintConvexQuad *tmp)
 	curr = head;	
 	while (curr != NULL)
 	{
-		cout << "Номер категории фигур: " << curr->key << endl;
+		cout << "РќРѕРјРµСЂ РєР°С‚РµРіРѕСЂРёРё С„РёРіСѓСЂ: " << curr->key << endl;
 		showOneListElements(tmp);
 		curr=curr->next;
 	}
@@ -156,7 +156,7 @@ void containerTable::showFromTail(paintConvexQuad *tmp)
 	curr = tail;	
 	while (curr != NULL)
 	{
-		cout << "Номер категории фигур: " << curr->key << endl;
+		cout << "РќРѕРјРµСЂ РєР°С‚РµРіРѕСЂРёРё С„РёРіСѓСЂ: " << curr->key << endl;
 		showOneListElements(tmp);
 		curr = curr->prev;
 	}

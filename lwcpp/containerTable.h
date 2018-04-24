@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "doubleLinkedList.h"
 
 
@@ -14,7 +14,7 @@ public:
 	void searchNode(int mark);
 	int searchFreeCell();
 	void createNode(int mark);	
-	void deleteTableElement(); //удаление фигуры в таблице
+	void deleteTableElement(); //СѓРґР°Р»РµРЅРёРµ С„РёРіСѓСЂС‹ РІ С‚Р°Р±Р»РёС†Рµ
 	void deleteShape();	
 	void showAllListsElements();
 	void showOneListElements(paintConvexQuad *tmp);

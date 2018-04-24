@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "doubleLinkedList.h"
 
 CNode::CNode()
