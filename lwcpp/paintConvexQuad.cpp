@@ -1,5 +1,17 @@
-﻿#include "paintConvexQuad.h"
+﻿#pragma once
+#include "paintConvexQuad.h"
 
+
+paintConvexQuad::paintConvexQuad()
+{
+	x = new int;
+	y = new int;
+	diagonal1Angle = new double;
+	quad = new convexQuad;
+	*x = 100;
+	*y = 100;
+	*diagonal1Angle = 45;
+}
 
 paintConvexQuad::paintConvexQuad(convexQuad *quad, int x, int y, double diagonal1Angle)
 {
@@ -44,7 +56,7 @@ void paintConvexQuad::PrintWindowSize(HDC hdc, HWND hwnd, char *buf)
 	// формируем выводимую строку
 	sprintf_s(buf, 100, "Размер окна %d на %d пикселей", rt.right, rt.bottom);
 	// выводим строку графическими средствами
-	TextOutA(hdc, 10, 10, buf, strlen(buf));
+	TextOutA(hdc, 10, 10, buf, (int)strlen(buf));
 }
 
 //выбор кисти для заливки
@@ -209,4 +221,5 @@ paintConvexQuad::~paintConvexQuad()
 	delete x;
 	delete y;
 	delete diagonal1Angle;
+	delete quad;
 }

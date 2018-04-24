@@ -1,4 +1,5 @@
-﻿#include "convexQuad.h"
+﻿#pragma once
+#include "convexQuad.h"
 
 convexQuad::convexQuad()
 {
@@ -8,6 +9,7 @@ convexQuad::convexQuad()
 	*diagonal1 = 250.0;
 	*diagonal2 = 280.0;
 	*angle = 90.0;
+	mark = 0;
 }
 
 convexQuad::convexQuad(int d1, int d2, double angle)
@@ -18,16 +20,20 @@ convexQuad::convexQuad(int d1, int d2, double angle)
 	*diagonal1 = d1;
 	*diagonal2 = d2;
 	*this->angle = angle;
+	if (d1 < d2) mark = 0;
+	if (d1 > d2) mark = 1;
+	if (d1 = d2) mark = 2;
 }
 
 convexQuad::convexQuad(convexQuad &q)
 {
 	diagonal1 = new double;
 	diagonal2 = new double;
-	this->angle = new double;
+	angle = new double;
 	*diagonal1 = *q.diagonal1; // копирование атрибутов экзмепляра класса
 	*diagonal2 = *q.diagonal2;
 	*angle = *q.angle;
+	mark = q.mark;
 }
 //получение значений элементов данных класса
 double convexQuad::Get_diagonal1() { return *diagonal1; }

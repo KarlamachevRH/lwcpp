@@ -3,13 +3,15 @@
 
 class paintConvexQuad
 {
+	friend class containerTable;
 private:
 	convexQuad *quad;
 	int *x, *y;	
-	double *diagonal1Angle;
+	double *diagonal1Angle;	
 
 public:	
-	paintConvexQuad(convexQuad *quad, int x, int y, double diagonal1Angle); //конструктор 
+	paintConvexQuad(); //конструктор 
+	paintConvexQuad(convexQuad *quad, int x, int y, double diagonal1Angle); 
 	void ReadFile();//считать из файла
 	void PrintWindowSize(HDC hdc, HWND hwnd, char *buf);// вывод размера окна	
 	int SetBrushColour(); // выбор цвета кисти для заливки

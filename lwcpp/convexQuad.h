@@ -12,9 +12,11 @@ using namespace std;
 
 class convexQuad
 {
+	friend class containerTable;
 private:
 	double *diagonal1, *diagonal2; //диагонали выпуклого четырехугольника
 	double *angle; //угол между диагоналями
+	int mark; //признак, по которому фигуры делятся на категории и заносятся в массив в соответствующем узле списка			  
 
 public:
 	convexQuad(); //конструктор по умолчанию
