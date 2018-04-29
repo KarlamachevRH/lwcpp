@@ -69,6 +69,8 @@ void main()
 		HPEN hBluePen = CreatePen(PS_SOLID, 5, RGB(223, 238, 94));
 		HPEN hOldPen = SelectPen(hdc, hBluePen);
 
+		int cnt = 0; //счетчик выполнения основного цикла программы
+
 		convexQuad *q = new convexQuad();
 		paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
 		containerTable *l = new containerTable();
@@ -76,6 +78,10 @@ void main()
 		while (1)
 		{
 			int choice = mainMenu();
+			if (cnt > 0 && choice == 8) {
+				convexQuad *q = new convexQuad();
+				paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
+			}
 			p->PrintWindowSize(hdc, hwnd, buf);
 			switch (choice)
 			{
@@ -161,14 +167,7 @@ void main()
 			case 7:	p->SaveFile();
 				break;
 
-			case 8:	int d1, d2, angle;
-				cout << "Введите параметры добавляемой фигуры -\n"
-					<< "длины диагоналей и величину угла между ними:\n";
-				cin >> d1 >> d2 >> angle;
-				{					
-					paintConvexQuad *newP = new paintConvexQuad(q, 120, 100, 45);
-					l->addShapeToTable(newP);
-				}				
+			case 8:	l->addShapeToTable(p);								
 				break;
 
 			case 9:	try
@@ -202,6 +201,7 @@ void main()
 
 			default: break;
 			}
+			cnt++;
 		}		
 	}
 	else return;
