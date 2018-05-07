@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "doubleLinkedList.h"
 
-
+//класс - контейнер - двунаправленный список
 class containerTable
 {
 private:		

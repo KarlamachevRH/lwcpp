@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "containerTable.h"
+#include "hashingWithChains.h"
 
 using namespace std;
 
@@ -74,6 +75,7 @@ void main()
 		convexQuad *q = new convexQuad();
 		paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
 		containerTable *l = new containerTable();
+		hashingWithChains *h = new hashingWithChains(3);
 
 		while (1)
 		{
@@ -167,12 +169,14 @@ void main()
 			case 7:	p->SaveFile();
 				break;
 
-			case 8:	l->addShapeToTable(p);								
+			case 8:	l->addShapeToTable(p);	
+				h->addShape(p);
 				break;
 
 			case 9:	try
 					{
 						l->writeDataFromFileToTable();
+						h->readDataFromFileToTable();
 					}
 					catch (int error)
 					{
@@ -184,17 +188,29 @@ void main()
 				break;
 
 			case 10: l->saveDataInTableToFile();
+				h->saveDataInTableToFile();
 				break;
 
 			case 11: l->deleteTableElement();
+				h->deleteShape();
 				break;
 
-			case 12: l->showAllListsElements();
+			case 12: int choice;
+				cout << "Выберите тип таблицы для вывода данных фигур:\n"
+					<< "1 - показать данные из двунаправленного списка\n"
+					<< "2 - показать данные из хеш-таблицы" << endl;
+				do {
+					cin >> choice;
+				} while (choice < 1 && choice > 2);
+				
+				if(choice == 1)l->showAllListsElements();
+				if (choice == 2) h->showAllTableElementsData();
 				break;
 
 			case 13: delete q;
 				delete p;				
 				delete l;
+				delete h;
 				ReleaseDC(hwnd, hdc);
 				exit(0);
 				break;

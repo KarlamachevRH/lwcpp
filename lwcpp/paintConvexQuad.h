@@ -4,6 +4,7 @@
 class paintConvexQuad
 {
 	friend class containerTable;
+	friend class hashingWithChains;
 private:
 	convexQuad *quad;
 	int *x, *y;	

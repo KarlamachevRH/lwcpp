@@ -13,6 +13,7 @@ using namespace std;
 class convexQuad
 {
 	friend class containerTable;
+	friend class hashingWithChains;
 private:
 	double *diagonal1, *diagonal2; //диагонали выпуклого четырехугольника
 	double *angle; //угол между диагоналями
