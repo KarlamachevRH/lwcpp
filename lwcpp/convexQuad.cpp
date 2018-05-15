@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "convexQuad.h"
+﻿#include "convexQuad.h"
 
 convexQuad::convexQuad()
 {

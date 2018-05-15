@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "paintConvexQuad.h"
+﻿#include "paintConvexQuad.h"
 
 
 paintConvexQuad::paintConvexQuad()

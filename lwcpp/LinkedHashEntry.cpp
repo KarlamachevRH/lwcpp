@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "LinkedHashEntry.h"
+﻿#include "LinkedHashEntry.h"
 
 
 LinkedHashEntry::LinkedHashEntry():key(0), shapesCnt(1), paintconvexQuad(NULL), next(NULL){}

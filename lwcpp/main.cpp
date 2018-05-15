@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "containerTable.h"
 #include "hashingWithChains.h"
+#include "binaryTree.h"
 
 using namespace std;
 
@@ -72,10 +73,11 @@ void main()
 
 		int cnt = 0; //счетчик выполнения основного цикла программы
 
-		convexQuad *q = new convexQuad();
+		convexQuad *q = new convexQuad;
 		paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
-		containerTable *l = new containerTable();
+		containerTable *l = new containerTable;
 		hashingWithChains *h = new hashingWithChains(3);
+		binaryTree *t = new binaryTree(p);
 
 		while (1)
 		{
@@ -170,13 +172,22 @@ void main()
 				break;
 
 			case 8:	l->addShapeToTable(p);	
+
 				h->addShape(p);
+
+				t->setTempPtrs();
+				t->insert(NULL, p);
+
 				break;
 
 			case 9:	try
 					{
 						l->writeDataFromFileToTable();
+
 						h->readDataFromFileToTable();
+
+						t->setTempPtrs();
+						t->readDataFromFileToTree(NULL);
 					}
 					catch (int error)
 					{
@@ -188,23 +199,39 @@ void main()
 				break;
 
 			case 10: l->saveDataInTableToFile();
+
 				h->saveDataInTableToFile();
+
+				t->setTempPtrs();
+				t->saveDataInTreeToFile();
+
 				break;
 
 			case 11: l->deleteTableElement();
+
 				h->deleteShape();
+
+				t->setTempPtrs();
+				t->deleteShape(t->writeChoiceToDeleteShape());
+
 				break;
 
 			case 12: int choice;
 				cout << "Выберите тип таблицы для вывода данных фигур:\n"
 					<< "1 - показать данные из двунаправленного списка\n"
-					<< "2 - показать данные из хеш-таблицы" << endl;
+					<< "2 - показать данные из хеш-таблицы\n"
+					<< "3 - показать данные из дерева двоичного поиска" << endl;
 				do {
 					cin >> choice;
-				} while (choice < 1 && choice > 2);
+				} while (choice < 1 && choice > 3);
 				
 				if(choice == 1)l->showAllListsElements();
 				if (choice == 2) h->showAllTableElementsData();
+				if (choice == 3)
+				{
+					t->setTempPtrs();
+					t->scan();
+				}
 				break;
 
 			case 13: delete q;

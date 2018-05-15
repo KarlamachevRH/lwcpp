@@ -5,6 +5,7 @@ class paintConvexQuad
 {
 	friend class containerTable;
 	friend class hashingWithChains;
+	friend class binaryTree;
 private:
 	convexQuad *quad;
 	int *x, *y;	

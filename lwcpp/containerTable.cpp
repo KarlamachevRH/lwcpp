@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "containerTable.h"
+﻿#include "containerTable.h"
 
 
 containerTable::containerTable()

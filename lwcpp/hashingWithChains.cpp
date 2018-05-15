@@ -1,5 +1,4 @@
-﻿#pragma once
-#include "hashingWithChains.h"
+﻿#include "hashingWithChains.h"
 
 
 hashingWithChains::hashingWithChains(int size)
