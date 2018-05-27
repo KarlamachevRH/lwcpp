@@ -3,7 +3,7 @@
 
 //класс контейнер - хеш-таблица
 class hashingWithChains
-{
+{	
 	int hashTableSize;	
 	LinkedHashEntry *hashTable;
 	LinkedHashEntry *curr;

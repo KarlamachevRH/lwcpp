@@ -1,97 +1,61 @@
 ﻿#include "binaryTree.h"
 
 
-binaryTree::binaryTree() :root(NULL), curr(NULL), temp(NULL){}
+binaryTree::binaryTree() :root(NULL), temp(NULL){}
 
 binaryTree::binaryTree(paintConvexQuad *p)
 {
 	root = new BSTNode(p);
-	curr = temp = root;
+	temp = root;
 }
 
-void binaryTree::clearTree()
-{	
-	temp = curr->parent;
-	if (curr->l != NULL || curr->r != NULL)
+void binaryTree::clearTree(BSTNode *&root)
+{			
+	if (root!= NULL)
 	{
-		curr = curr->l;
-		clearTree();
-		curr = curr->r;
-		clearTree();		
-	}
-	delete curr;
-	curr = temp;
+		clearTree(root->l);
+		clearTree(root->r);
+		delete root;
+		root = NULL;
+	}	
 }
 
 binaryTree::~binaryTree()
 {
-	clearTree();
+	clearTree(root);
 }
 
-void binaryTree::setTempPtrs()
-{
-	curr = temp = root;
+BSTNode *&binaryTree::getRoot() { return root; }
+
+void binaryTree::insert(BSTNode *&root, BSTNode *parent, paintConvexQuad *paintconvexQuad)
+{			
+	if (root == NULL)
+	{
+		root = new BSTNode(paintconvexQuad);			
+		root->parent = parent;				
+		return;
+	}
+	
+	parent = root;
+	root->cnt++;		
+
+	if (root->paintconvexQuad->quad->mark >= paintconvexQuad->quad->mark) insert(root->l, parent, paintconvexQuad);
+		
+	else insert(root->r, parent, paintconvexQuad);	
 }
 
-void binaryTree::search(int key)
-{
+void binaryTree::scan(BSTNode *&root)
+{		
 	if (root == NULL) return;	
 
-	if (curr->paintconvexQuad->quad->mark == key) return;
+	cout << "Признак-метка фигуры: " << root->paintconvexQuad->quad->mark << endl
+		<< "Длина диагонали 1 выпуклого четырехугольника: " << root->paintconvexQuad->quad->Get_diagonal1() << endl
+		<< "Длина диагонали 2 выпуклого четырехугольника: " << root->paintconvexQuad->quad->Get_diagonal2() << endl
+		<< "Величина угла между диагоналями выпуклого четырехугольника: " << root->paintconvexQuad->quad->Get_angle() << endl;
 
-	if (curr->paintconvexQuad->quad->mark > key)
-	{
-		curr = curr->l; 
-		search(key);
-	}
+	scan(root->l);
 
-	curr = curr->r;
-	search(key);
-}
-
-void binaryTree::insert(BSTNode * parent, paintConvexQuad * paintconvexQuad)
-{		
-	if (curr == NULL)
-	{
-		curr = new BSTNode(paintconvexQuad);
-		curr->parent = parent;
-		return;
-	}
-	
-	parent = curr;
-	curr->cnt++;
-
-	if (curr->paintconvexQuad->quad->mark > paintconvexQuad->quad->mark)
-	{
-		curr = curr->l;
-		insert(parent, paintconvexQuad);
-	}
-	
-	else 
-	{		
-		curr = curr->r;
-		insert(parent, paintconvexQuad);
-	}
-}
-
-void binaryTree::scan()
-{	
-	if (curr == NULL)
-	{
-		cout << "Дерево не содержит данных" << endl;
-		return;
-	}
-
-	cout << "Признак-метка фигуры: " << curr->paintconvexQuad->quad->mark << endl
-		<< "Длина диагонали 1 выпуклого четырехугольника: " << curr->paintconvexQuad->quad->Get_diagonal1() << endl
-		<< "Длина диагонали 2 выпуклого четырехугольника: " << curr->paintconvexQuad->quad->Get_diagonal2() << endl
-		<< "Величина угла между диагоналями выпуклого четырехугольника: " << curr->paintconvexQuad->quad->Get_angle() << endl;
-
-	curr=curr->l;
-	scan();
-
-	curr = curr->r;
-	scan();
+	scan(root->r);	
 }
 
 int binaryTree::writeChoiceToDeleteShape()
@@ -107,33 +71,58 @@ int binaryTree::writeChoiceToDeleteShape()
 	return mark;
 }
 
-void binaryTree::deleteShape(int k)
+BSTNode *&binaryTree::search(BSTNode *&node, int key)
 {
+	if (node == NULL) return node;
+
+	if (node->paintconvexQuad->quad->mark == key) return node;
+
+	if (node->paintconvexQuad->quad->mark > key)
+	{
+		return search(node->l, key);
+	}
+	else if(node->paintconvexQuad->quad->mark < key)
+	{
+		return search(node->r, key);
+	}
+}
+
+void binaryTree::deleteShape(BSTNode *&root, int k)
+{	
+	BSTNode *node = NULL;
 	if (root == NULL)
 	{
-		cout << "Дерево не содержит данных" << endl;
+		cout << "Лист дерева" << endl;
 		return;
 	}
 	
-	search(k);
-	deleteNode();	
+	node = search(root, k);	
+	deleteNode(node);
 }
 
 //Удаление узла
-void binaryTree::deleteNode()
-{
-	BSTNode *node = curr;
+void binaryTree::deleteNode(BSTNode *&node)
+{	
+	if (node->l == NULL && node->r == NULL)
+	{
+		if(node->parent->l == node) node->parent->l = NULL;
+		else node->parent->r = NULL;
+		delete node;
+		return;
+	}
 	if (node->l == NULL) //Если нет левого поддерева
 	{		
 		BSTNode *right = node->r;
 		delete node;
 		node = right;
+		return;
 	}
 	else if(node->r == NULL) //Если нет правого поддерева
 	{
 		BSTNode *left = node->l;
 		delete node;
 		node = left;
+		return;
 	}
 	else //Есть оба поддерева
 	{ //Ищем минимальный элемент и его родителя
@@ -152,68 +141,84 @@ void binaryTree::deleteNode()
 	}
 }
 
-void binaryTree::saveDataInTreeToFile()
+void binaryTree::saveData(BSTNode *&root)
 {
-	ofstream fout("BinaryTree.txt");
+	int cnt = 0;
+	saveDataInTreeToFile(root, cnt);
+}
+
+void binaryTree::saveDataInTreeToFile(BSTNode *&root, int cnt)
+{	
+	if (cnt == 0) ofstream fout("BinaryTree.txt", ios_base::trunc);
+	ofstream fout("BinaryTree.txt", ios_base::app);
 	
 	if (root == NULL)
 	{
-		cout << "Нет данных в дереве" << endl;
+		cout << "Лист дерева" << endl;
 		return;
-	}
+	}	
 
-	if (curr == NULL) return;	
-
-	fout << "Признак-метка фигуры: " << curr->paintconvexQuad->quad->mark << " "
-		<< "Счетчик фигур: " << curr->cnt << " "
-		<< "Длина диагонали 1 выпуклого четырехугольника: " << curr->paintconvexQuad->quad->Get_diagonal1() << " "
-		<< "Длина диагонали 2 выпуклого четырехугольника: " << curr->paintconvexQuad->quad->Get_diagonal2() << " "
-		<< "Величина угла между диагоналями выпуклого четырехугольника: " << curr->paintconvexQuad->quad->Get_angle() << endl;
-
-	curr = curr->l;
-	saveDataInTreeToFile();
-
-	curr = curr->r;
-	saveDataInTreeToFile();
+	fout << root->paintconvexQuad->quad->mark << " "		
+		<< root->paintconvexQuad->quad->Get_diagonal1() << " "
+		<< root->paintconvexQuad->quad->Get_diagonal2() << " "
+		<< root->paintconvexQuad->quad->Get_angle() << endl;
+	cnt++;
+		
+	saveDataInTreeToFile(root->l, cnt);
+	
+	saveDataInTreeToFile(root->r, cnt);
 }
 
-void binaryTree::readDataFromFileToTree(BSTNode *parent)
+void binaryTree::readData(BSTNode *&root, BSTNode *parent, ifstream &fin, int ch, int mark, int readCnt)
 {
-	double d1, d2, angle;
-	int mark;
-	int cnt;	
-	ifstream fin("BinaryTree.txt");
-	if (!fin.is_open()) throw 1;
+	double d1, d2, angle;	
 
-	if (fin.peek() == EOF) return;
+	if (ch = fin.get() == EOF) return;
 
-	if (curr == NULL)
+	cout << "Загрузка из файла" << endl;
+
+	if (root == NULL)
 	{
-		curr = new BSTNode;
-		curr->parent = parent;
+		root = new BSTNode();
+		root->parent = parent;
 	}
-	parent = curr;
+	fin.seekg(-1, ios::cur);
+	if(readCnt == 0) fin >> mark;
+	parent = root;
+	root->cnt++;
 	
-	while (fin.peek() != '\n')
-	{		
-		fin >> mark;
-		fin >> cnt;
+	while (ch = fin.get() != '\n')
+	{
+		fin.seekg(-1, ios::cur);		
 		fin >> d1;
 		fin >> d2;
 		fin >> angle;
 
 		paintConvexQuad *paintQuad = new paintConvexQuad();
-		curr->paintconvexQuad = paintQuad;
-		curr->paintconvexQuad->quad->mark = mark;
-		curr->cnt = cnt;
-		curr->paintconvexQuad->quad->Set_diagonal1(d1);
-		curr->paintconvexQuad->quad->Set_diagonal2(d2);
-		curr->paintconvexQuad->quad->Set_angle(angle);
-	}
-	
-	curr = curr->l;
-	readDataFromFileToTree(parent);
+		root->paintconvexQuad = paintQuad;
+		root->paintconvexQuad->quad->mark = mark;
+		root->paintconvexQuad->quad->Set_diagonal1(d1);
+		root->paintconvexQuad->quad->Set_diagonal2(d2);
+		root->paintconvexQuad->quad->Set_angle(angle);			
+	}	
+	readCnt++;
+	fin >> mark;
 
-	curr = curr->r;
-	readDataFromFileToTree(parent);
+	if (root->paintconvexQuad->quad->mark >= mark) readData(root->l, parent, fin, ch, mark, readCnt);
+	if (root->paintconvexQuad->quad->mark < mark) readData(root->r, parent, fin, ch, mark, readCnt);
+}
+
+void binaryTree::readDataFromFileToTree(BSTNode *&root, BSTNode *parent)
+{		
+	ifstream fin("BinaryTree.txt");
+
+	int ch = 0;
+	int mark = -1;
+	int readCnt = 0;
+
+	if (!fin.is_open()) throw 1;
+	else readData(root, parent, fin, ch, mark, readCnt);
+	
+	cout << "Конец файла данных для бинарного дерева" << endl;	
+	fin.close();
 }

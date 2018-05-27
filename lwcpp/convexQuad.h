@@ -22,7 +22,7 @@ private:
 
 public:
 	convexQuad(); //конструктор по умолчанию
-	convexQuad(int d1, int d2, double angle);  // конструктор с заданными параметрами
+	convexQuad(double d1, double d2, double angle);  // конструктор с заданными параметрами
 	convexQuad(convexQuad &q);  //конструктор копирования
 	double Get_diagonal1(); //получить значение
 	double Get_diagonal2();

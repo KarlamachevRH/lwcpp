@@ -5,6 +5,7 @@
 
 using namespace std;
 
+//основное меню
 int mainMenu()
 {
 	// Варианты меню
@@ -19,17 +20,273 @@ int mainMenu()
 			<< "5. Изменение размеров фигуры\n"
 			<< "6. Перемещение фигуры\n"
 			<< "7. Вывод данных в файл\n"
-			<< "8. Добавить объект в контейнер - таблицу\n"
-			<< "9. Загрузить данные объектов из файла в контейнер - таблицу \n"
-			<< "10. Сохранить данные объектов из контейнера в файл\n"
-			<< "11. Удалить элемент из таблицы\n"
-			<< "12. Вывод данных объектов в таблице на экран\n"
-			<< "13. Выход\n"
+			<< "8. В меню выбора контейнеров для фигур и работы с ними\n"			
+			<< "9. Выход\n"
 			<< "ESC для повтора выбора пункта меню\n"
 			<< ">:";
 		cin >> choice;
-	} while (choice < 1 || choice > 13);
+	} while (choice < 1 || choice > 9);
 	return choice;
+}
+
+//меню выбора типа контейнера
+int containerSelection()
+{
+	int choice;
+	do
+	{
+		cout << "Выберите тип контейнера для фигур:\n"
+			<< "1. Таблица на основе двухсвязного списка\n"
+			<< "2. Таблица на основе хеш-таблицы\n"
+			<< "3. Таблица на основе дерева двоичного поиска\n"			
+			<< "4. Выход в основное меню\n"
+			<< "ESC для повтора выбора пункта меню\n"
+			<< ">:";
+		cin >> choice;
+	} while (choice < 1 || choice > 4);
+	return choice;
+}
+
+//меню выбора действий при работе с контейнерами
+int menuContainers()
+{
+	int choice = 0;
+	do
+	{
+		cout << "Введите номер пункта меню выбора действий при работе с контейнерами:\n"
+			<< "1. Добавить объект в контейнер - таблицу\n"
+			<< "2. Загрузить данные объектов из файла в контейнер - таблицу \n"
+			<< "3. Сохранить данные объектов из контейнера в файл\n"
+			<< "4. Удалить элемент из таблицы\n"
+			<< "5. Вывод данных объектов в таблице на экран\n"
+			<< "6. Выход в меню выбора типа контейнера\n"
+			<< "ESC для повтора выбора пункта меню\n"
+			<< ">:";
+		cin >> choice;
+	} while (choice < 1 || choice > 6);		
+
+	return choice;
+}
+
+paintConvexQuad *createShapeFirstTime()
+{
+	convexQuad *q = new convexQuad();
+	paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
+	return p;
+}
+
+paintConvexQuad *createShape()
+{
+	double d1, d2, angle;
+	cout << "Введите параметры фигуры: d1, d2, angle\n";
+	cin >> d1 >> d2 >> angle;
+	convexQuad *q = new convexQuad(d1, d2, angle);
+	paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
+	return p;
+}
+
+//работа с двухсвязным списком
+int workingWithDoubleLinkedList()
+{
+	containerTable *l = new containerTable; //создание объекта-контейнера
+
+	int cnt = 0; //счетчик циклов основного меню в функции
+
+	while (1)
+	{
+		//выбор действий при работе с контейнером
+		int choice = menuContainers();
+
+		paintConvexQuad *p = NULL;
+
+		//начальное создание объекта - фигуры
+		if(cnt == 0)	p = createShapeFirstTime();
+
+		//добавить еще одну фигуру
+		if (cnt > 0 && choice == 1) p = createShape();		
+
+		switch (choice)
+		{
+		case 1: l->addShapeToTable(p);
+			break;
+
+		case 2:	try
+				{
+					l->writeDataFromFileToTable();			
+				}
+				catch (int error)
+				{
+					if (error == 1)
+					{
+						cout << "Файл не найден" << endl;
+					}
+				}
+			break;
+
+		case 3: l->saveDataInTableToFile();			
+			break;
+
+		case 4: l->deleteTableElement();
+			break;
+
+		case 5: l->showAllListsElements();			
+			break;
+
+		case 6: delete l;
+			return 0;
+			break;
+
+		default: break;
+		}	
+		cnt++;
+	}
+}
+
+//работа с хеш-таблицей
+int workingWithHashTable()
+{
+	hashingWithChains *h = new hashingWithChains(3);
+
+	int cnt = 0; //счетчик циклов основного меню в функции
+
+	while (1)
+	{
+		//выбор действий при работе с контейнером
+		int choice = menuContainers();
+
+		paintConvexQuad *p = NULL;
+
+		//начальное создание объекта - фигуры
+		if (cnt == 0) p = createShapeFirstTime();
+
+		//добавить еще одну фигуру
+		if (cnt > 0 && choice == 1) p = createShape();
+		
+		switch (choice)
+		{
+		case 1: h->addShape(p);
+			break;
+
+		case 2: try
+				{	
+					h->readDataFromFileToTable();			
+				}
+			    catch (int error)
+			    {
+				    if (error == 1)
+				    {
+					   cout << "Файл не найден" << endl;
+				    }
+			    }
+
+			break;
+
+		case 3: h->saveDataInTableToFile();
+			break;
+
+		case 4: h->deleteShape();
+			break;
+
+		case 5: h->showAllTableElementsData();			
+			break;
+
+		case 6: delete h;
+			return 0;
+			break;
+
+		default: break;
+		}
+		cnt++;
+	}
+}
+
+//работа с бинарным деревом
+int workingWithBinaryTree()
+{
+	binaryTree *t = new binaryTree();
+
+	bool isCreated = false; //число фигур, добавленных в контейнер вручную
+
+	BSTNode *parent = NULL;
+
+	BSTNode *root = t->getRoot();
+
+	paintConvexQuad *p = NULL;
+
+	while (1)
+	{
+		//выбор действий при работе с контейнером
+		int choice = menuContainers();
+
+		//начальное создание объекта - фигуры
+		if (isCreated == false) p = createShapeFirstTime();
+
+		//добавить еще одну фигуру
+		if (isCreated == true && choice == 1) p = createShape();
+		
+		switch (choice)
+		{
+		case 1: t->insert(root, parent, p);	
+			isCreated = true;
+			break;
+
+		case 2: try
+				{					
+					t->readDataFromFileToTree(root, parent);	
+					isCreated = true;
+				}
+			    catch (int error)
+			    {
+				    if (error == 1)
+			  	    {
+					    cout << "Файл не найден" << endl;
+				    }
+			    }
+			break;
+
+		case 3: t->saveData(root);				
+			break;
+
+		case 4: t->deleteShape(root, t->writeChoiceToDeleteShape());				
+			break;
+
+		case 5: t->scan(root);				
+			break;
+
+		case 6: delete t;
+			return 0;
+			break;
+
+		default: break;
+		}		
+	}
+}
+
+//работа с контейнерами
+void workingWithContainers()
+{
+	while (1)
+	{
+		//выбор типа контейнера
+		int choice = containerSelection();
+
+		switch (choice)
+		{
+		case 1: workingWithDoubleLinkedList(); //работа с двунаправленным списком
+			break;
+
+		case 2:	workingWithHashTable(); //работа с хеш-таблицей
+			break;
+
+		case 3:	workingWithBinaryTree(); //работа с бинарным деревом
+			break;
+
+		case 4: return;
+			break;
+
+		default: break;
+		}
+	}
 }
 
 //функция проверки наличия окна блокнота
@@ -39,15 +296,17 @@ bool isFinded(HWND hwnd)
 	if (hwnd != NULL)
 	{
 		f = true;
-		cout << "Окно найдено\n";
+		cout << "Окно блокнота найдено\n";
 		TCHAR name[200];
 		GetWindowText(hwnd, name, sizeof(name));
 		wcout << name << endl;
 	}
 	else
+
 	{
-		cout << "Окно не найдено\n";
+		cout << "Окно блокнота не найдено\n";
 		f = false;
+		cin.get();
 	}
 	return f;
 }
@@ -69,23 +328,15 @@ void main()
 		HBRUSH hOldBrush;
 		HBRUSH hSomeBrush;
 		HPEN hBluePen = CreatePen(PS_SOLID, 5, RGB(223, 238, 94));
-		HPEN hOldPen = SelectPen(hdc, hBluePen);
-
-		int cnt = 0; //счетчик выполнения основного цикла программы
+		HPEN hOldPen = SelectPen(hdc, hBluePen);	
 
 		convexQuad *q = new convexQuad;
-		paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
-		containerTable *l = new containerTable;
-		hashingWithChains *h = new hashingWithChains(3);
-		binaryTree *t = new binaryTree(p);
+		paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);		
 
 		while (1)
 		{
 			int choice = mainMenu();
-			if (cnt > 0 && choice == 8) {
-				convexQuad *q = new convexQuad();
-				paintConvexQuad *p = new paintConvexQuad(q, 120, 100, 45);
-			}
+			
 			p->PrintWindowSize(hdc, hwnd, buf);
 			switch (choice)
 			{
@@ -171,80 +422,17 @@ void main()
 			case 7:	p->SaveFile();
 				break;
 
-			case 8:	l->addShapeToTable(p);	
-
-				h->addShape(p);
-
-				t->setTempPtrs();
-				t->insert(NULL, p);
-
+			case 8:	workingWithContainers();
 				break;
 
-			case 9:	try
-					{
-						l->writeDataFromFileToTable();
-
-						h->readDataFromFileToTable();
-
-						t->setTempPtrs();
-						t->readDataFromFileToTree(NULL);
-					}
-					catch (int error)
-					{
-						if (error == 1)
-						{
-							cout << "Файл не найден" << endl;
-						}
-					}
-				break;
-
-			case 10: l->saveDataInTableToFile();
-
-				h->saveDataInTableToFile();
-
-				t->setTempPtrs();
-				t->saveDataInTreeToFile();
-
-				break;
-
-			case 11: l->deleteTableElement();
-
-				h->deleteShape();
-
-				t->setTempPtrs();
-				t->deleteShape(t->writeChoiceToDeleteShape());
-
-				break;
-
-			case 12: int choice;
-				cout << "Выберите тип таблицы для вывода данных фигур:\n"
-					<< "1 - показать данные из двунаправленного списка\n"
-					<< "2 - показать данные из хеш-таблицы\n"
-					<< "3 - показать данные из дерева двоичного поиска" << endl;
-				do {
-					cin >> choice;
-				} while (choice < 1 && choice > 3);
-				
-				if(choice == 1)l->showAllListsElements();
-				if (choice == 2) h->showAllTableElementsData();
-				if (choice == 3)
-				{
-					t->setTempPtrs();
-					t->scan();
-				}
-				break;
-
-			case 13: delete q;
-				delete p;				
-				delete l;
-				delete h;
+			case 9: 		
+				delete p;
 				ReleaseDC(hwnd, hdc);
 				exit(0);
 				break;
 
 			default: break;
-			}
-			cnt++;
+			}			
 		}		
 	}
 	else return;

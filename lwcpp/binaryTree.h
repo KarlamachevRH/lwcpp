@@ -3,8 +3,7 @@
 
 class binaryTree
 {	
-	BSTNode *root;
-	BSTNode *curr; 
+	BSTNode *root;	
 	BSTNode *temp;
 
 public:
@@ -12,24 +11,30 @@ public:
 	binaryTree();
 	binaryTree(paintConvexQuad * p);
 
-	void clearTree();
+	void clearTree(BSTNode *&root);
 	~binaryTree();
 
-	void setTempPtrs();	
-
-	// Поиск вершины с заданным значением 
-	void search(int key);
-
+	BSTNode *&getRoot();	
+	
 	// Включение в двоичное дерево
-	void insert(BSTNode * parent, paintConvexQuad *paintconvexQuad);
+	void insert(BSTNode *& root, BSTNode *parent, paintConvexQuad * paintconvexQuad);	
 
 	// Вывод данных объектов в дереве
-	void scan();
+	void scan(BSTNode *&root);
 
 	int writeChoiceToDeleteShape();	
-	void deleteShape(int k);
-	void deleteNode();
 
-	void saveDataInTreeToFile();
-	void readDataFromFileToTree(BSTNode *parent);
+	// Поиск вершины с заданным значением 
+	BSTNode *&search(BSTNode *&node, int key);
+
+	void deleteShape(BSTNode *&root, int k);
+	void deleteNode(BSTNode *&node);
+
+	void saveData(BSTNode *& root);
+
+	void saveDataInTreeToFile(BSTNode *&root, int cnt);
+
+	void readData(BSTNode *& root, BSTNode * parent, ifstream &fin, int ch, int mark, int readCnt);
+	
+	void readDataFromFileToTree(BSTNode *&root, BSTNode *parent);
 };

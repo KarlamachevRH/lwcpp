@@ -5,13 +5,13 @@ convexQuad::convexQuad()
 	diagonal1 = new double;
 	diagonal2 = new double;
 	angle = new double;
-	*diagonal1 = 250.0;
-	*diagonal2 = 280.0;
+	*diagonal1 = 280.0;
+	*diagonal2 = 260.0;
 	*angle = 90.0;
-	mark = 0;
+	mark = 1;
 }
 
-convexQuad::convexQuad(int d1, int d2, double angle)
+convexQuad::convexQuad(double d1, double d2, double angle)
 {
 	diagonal1 = new double;
 	diagonal2 = new double;
@@ -20,8 +20,8 @@ convexQuad::convexQuad(int d1, int d2, double angle)
 	*diagonal2 = d2;
 	*this->angle = angle;
 	if (d1 < d2) mark = 0;
-	if (d1 > d2) mark = 1;
-	if (d1 = d2) mark = 2;
+	else if (d1 > d2) mark = 1;
+	else if(d1 == d2) mark = 2;
 }
 
 convexQuad::convexQuad(convexQuad &q)

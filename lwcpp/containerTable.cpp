@@ -18,7 +18,7 @@ void containerTable::addShapeToTable(paintConvexQuad *paintQuad)
 
 void containerTable::searchNode(int mark)
 {
-	CNode *curr = head;
+	curr = head;
 	while (curr != NULL)
 	{
 		if (curr->key == mark)
@@ -59,7 +59,7 @@ void containerTable::createNode(int mark)
 		else
 		{
 			curr->next = node;
-			curr->next->prev = curr;
+			node->prev = curr;
 			curr = tail = node;
 			curr->key = mark;
 		}
@@ -87,11 +87,17 @@ void containerTable::deleteTableElement()
 
 void containerTable::deleteShape()
 {
-	int choice;		
-	cout << "Введите номер удаляемой фигуры 1...5: " << endl;
+	int choice;			
+	cout << "Введите номер удаляемой фигуры 0...4: " << endl;
 	do {
 		cin >> choice;
-	} while (choice < 1 && choice > 5);	
+		if (curr->quads[choice] == NULL)
+		{
+			cout << "Такой фигуры нет в контейнере\n";
+			return;
+		}
+	} while (choice < 0 && choice > 4);	
+
 	delete curr->quads[choice];
 	curr->quads[choice] = NULL;
 }
@@ -129,6 +135,7 @@ void containerTable::showOneListElements(paintConvexQuad *tmp)
 	for (int i = 0; i < 5; i++)
 	{
 		while (curr->quads[i] == NULL && i<5) i++;
+		if (i == 5)i--;
 		if (curr->quads[i] != NULL)
 		{
 			tmp = curr->quads[i];
@@ -163,27 +170,36 @@ void containerTable::showFromTail(paintConvexQuad *tmp)
 
 void containerTable::saveDataInTableToFile()
 {
-	paintConvexQuad *tmp;
-	ofstream fout("DoubleLinkedListTable.txt");
-	curr = head;
-	while (curr!=NULL)
+	if (head != NULL)
 	{
-		fout << curr->key << " ";
-		for (int i = 0; i < 5; i++)
+		paintConvexQuad *tmp = NULL;
+		ofstream fout("DoubleLinkedListTable.txt");
+		curr = head;
+		while (curr!=NULL)
 		{
-			while (curr->quads[i] == NULL) i++;
-			tmp = curr->quads[i];
-			fout << tmp->quad->Get_diagonal1() << " "
-				 << tmp->quad->Get_diagonal2() << " "
-				 << tmp->quad->Get_angle() << endl;			
-		}
-		curr = curr->next;
-	}	
+			fout << curr->key << " ";
+			for (int i = 0; i < 5; i++)
+			{
+				while (curr->quads[i] == NULL && i<5) i++;
+				if (i == 5)i--;
+				if (curr->quads[i] != NULL)
+				{
+					tmp = curr->quads[i];
+					fout << tmp->quad->Get_diagonal1() << " "
+						<< tmp->quad->Get_diagonal2() << " "
+						<< tmp->quad->Get_angle() << endl;
+				}
+			}
+			curr = curr->next;
+		}		
+	}
+	else cout << "Нет данных в таблице" << endl
+		<< "Нажмите Esc для возврата" << endl;
 }
 
 void containerTable::writeDataFromFileToTable()
 {
-	paintConvexQuad *tmp;
+	paintConvexQuad *tmp = NULL;
 	double d1, d2, angle;
 	ifstream fin("DoubleLinkedListTable.txt");
 	if (!fin.is_open()) throw 1;
@@ -192,8 +208,8 @@ void containerTable::writeDataFromFileToTable()
 		int mark;
 		fin >> mark;
 		createNode(mark);
-		for (int i = 0; fin.peek() != '\n'&&i < 5; i++)
-		{
+		for (int i = 0; fin.peek() != '\n' && i < 5; i++)
+		{			
 			tmp = new paintConvexQuad();
 			curr->quads[i] = tmp;
 			fin >> d1;
@@ -202,8 +218,10 @@ void containerTable::writeDataFromFileToTable()
 			tmp->quad->Set_diagonal1(d1);
 			tmp->quad->Set_diagonal2(d2);
 			tmp->quad->Set_angle(angle);
+			if (fin.peek() == EOF) i = 5;
 		}				
 	}
+	fin.close();
 }
 
 containerTable::~containerTable()
