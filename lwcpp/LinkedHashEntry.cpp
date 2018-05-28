@@ -16,29 +16,9 @@ void LinkedHashEntry::setKey(int key)
 	this->key = key;
 }
 
-int LinkedHashEntry::getKey()
-{
-	return key;
-}
-
-void LinkedHashEntry::setValue(paintConvexQuad *paintconvexQuad)
-{
-	this->paintconvexQuad = paintconvexQuad;
-}
-
-paintConvexQuad* LinkedHashEntry::getValue()
-{
-	return paintconvexQuad;
-}
-
 LinkedHashEntry * LinkedHashEntry::getNext()
 {
 	return next;
-}
-
-void LinkedHashEntry::setNext(LinkedHashEntry * next)
-{
-	this->next = next;
 }
 
 LinkedHashEntry::~LinkedHashEntry()

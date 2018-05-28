@@ -18,17 +18,9 @@ public:
 
 	LinkedHashEntry(int key, int shapesCnt, paintConvexQuad *paintconvexQuad);
 
-	void setKey(int key);
-
-	int getKey();
-
-	void setValue(paintConvexQuad *paintconvexQuad);
-
-	paintConvexQuad* getValue();	
+	void setKey(int key);			
 
 	LinkedHashEntry *getNext();
-
-	void setNext(LinkedHashEntry *next);
+	
 	~LinkedHashEntry();
 };
-

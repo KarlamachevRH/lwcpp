@@ -139,7 +139,8 @@ void containerTable::showOneListElements(paintConvexQuad *tmp)
 		if (curr->quads[i] != NULL)
 		{
 			tmp = curr->quads[i];
-			cout << "Длина диагонали 1 выпуклого четырехугольника: " << tmp->quad->Get_diagonal1() << endl
+			cout << "Номер фигуры: " << i << endl
+				<< "Длина диагонали 1 выпуклого четырехугольника: " << tmp->quad->Get_diagonal1() << endl
 				<< "Длина диагонали 2 выпуклого четырехугольника: " << tmp->quad->Get_diagonal2() << endl
 				<< "Величина угла между диагоналями выпуклого четырехугольника: " << tmp->quad->Get_angle() << endl;
 		}

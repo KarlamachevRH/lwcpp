@@ -15,4 +15,3 @@ struct BSTNode
 	BSTNode(paintConvexQuad * paintconvexQuad);
 	~BSTNode();
 };
-

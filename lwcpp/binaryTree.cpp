@@ -89,14 +89,14 @@ BSTNode *&binaryTree::search(BSTNode *&node, int key)
 
 void binaryTree::deleteShape(BSTNode *&root, int k)
 {	
-	BSTNode *node = NULL;
+	/*BSTNode *node = NULL;*/
 	if (root == NULL)
 	{
 		cout << "Лист дерева" << endl;
 		return;
 	}
 	
-	node = search(root, k);	
+	BSTNode *&node = search(root, k);
 	deleteNode(node);
 }
 
@@ -110,11 +110,11 @@ void binaryTree::deleteNode(BSTNode *&node)
 		delete node;
 		return;
 	}
-	if (node->l == NULL) //Если нет левого поддерева
+	else if (node->l == NULL) //Если нет левого поддерева
 	{		
 		BSTNode *right = node->r;
 		delete node;
-		node = right;
+		node = right;		
 		return;
 	}
 	else if(node->r == NULL) //Если нет правого поддерева

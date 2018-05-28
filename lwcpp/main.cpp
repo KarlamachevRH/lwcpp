@@ -108,11 +108,13 @@ int workingWithDoubleLinkedList()
 		switch (choice)
 		{
 		case 1: l->addShapeToTable(p);
+			cout << "Данные фигуры добавлены в контейнер" << endl;
 			break;
 
 		case 2:	try
 				{
-					l->writeDataFromFileToTable();			
+					l->writeDataFromFileToTable();	
+					cout << "Данные из файла добавлены в таблицу-контейнер" << endl;
 				}
 				catch (int error)
 				{
@@ -123,10 +125,12 @@ int workingWithDoubleLinkedList()
 				}
 			break;
 
-		case 3: l->saveDataInTableToFile();			
+		case 3: l->saveDataInTableToFile();		
+			cout << "Данные в контейнере сохранены в файл" << endl;
 			break;
 
 		case 4: l->deleteTableElement();
+			cout << "Фигура удалена из таблицы-контейнера" << endl;
 			break;
 
 		case 5: l->showAllListsElements();			
@@ -165,11 +169,13 @@ int workingWithHashTable()
 		switch (choice)
 		{
 		case 1: h->addShape(p);
+			cout << "Данные фигуры добавлены в контейнер" << endl;
 			break;
 
 		case 2: try
 				{	
-					h->readDataFromFileToTable();			
+					h->readDataFromFileToTable();
+					cout << "Данные из файла добавлены в таблицу-контейнер" << endl;
 				}
 			    catch (int error)
 			    {
@@ -182,9 +188,11 @@ int workingWithHashTable()
 			break;
 
 		case 3: h->saveDataInTableToFile();
+			cout << "Данные в контейнере сохранены в файл" << endl;
 			break;
 
 		case 4: h->deleteShape();
+			cout << "Фигура удалена из таблицы-контейнера" << endl;
 			break;
 
 		case 5: h->showAllTableElementsData();			
@@ -228,12 +236,14 @@ int workingWithBinaryTree()
 		{
 		case 1: t->insert(root, parent, p);	
 			isCreated = true;
+			cout << "Данные фигуры добавлены в контейнер" << endl;
 			break;
 
 		case 2: try
 				{					
 					t->readDataFromFileToTree(root, parent);	
 					isCreated = true;
+					cout << "Данные из файла добавлены в таблицу-контейнер" << endl;
 				}
 			    catch (int error)
 			    {
@@ -244,10 +254,12 @@ int workingWithBinaryTree()
 			    }
 			break;
 
-		case 3: t->saveData(root);				
+		case 3: t->saveData(root);	
+			cout << "Данные в контейнере сохранены в файл" << endl;
 			break;
 
-		case 4: t->deleteShape(root, t->writeChoiceToDeleteShape());				
+		case 4: t->deleteShape(root, t->writeChoiceToDeleteShape());
+			cout << "Фигура удалена из таблицы-контейнера" << endl;
 			break;
 
 		case 5: t->scan(root);				
